@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "main": "bin/server",
   "scripts": {
+    "lint": "standard --fix lib/**/*.js bin/*",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "standard": "~10.0.3"
+  }
 }
