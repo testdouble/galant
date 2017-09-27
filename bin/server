@@ -1,3 +1,8 @@
 #!/usr/bin/env node
+const router = require('../lib/router')
 
-console.log('Running.')
+router
+  .listen(process.env.PORT || 8080)
+  .on('listening', function () {
+    console.log(`Listening on: ${this.address().address}:${this.address().port}`)
+  })
