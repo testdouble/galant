@@ -6,7 +6,8 @@ export default class Index extends React.Component {
     var webrtc = new SimpleWebRTC({
       localVideoEl: this.refs.localVideo,
       remoteVideosEl: this.refs.remoteVideos,
-      autoRequestMedia: true
+      autoRequestMedia: true,
+      url: '//' + window.location
     })
 
     webrtc.on('readyToCall', function () {
