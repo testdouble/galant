@@ -4,9 +4,13 @@
   "description": "Whimsical community-building for remote organizations.",
   "main": "bin/server",
   "scripts": {
-    "lint": "standard --fix lib/**/*.js bin/*",
+    "lint:client": "standard --fix pages/**/*.js",
+    "lint:server": "standard --fix lib/**/*.js bin/*",
+    "prestart": "npm run lint:server",
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:client": "find pages | entr -rc npm run lint:client",
+    "watch:server": "find bin lib | entr -rc npm run start"
   },
   "private": true,
   "devDependencies": {
