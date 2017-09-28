@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-const router = require('../lib/router')
+const createServer = require('../lib/server')
 
-router
-  .listen(process.env.PORT || 8080)
-  .on('listening', function () {
+createServer({
+  env: process.env.NODE_ENV || 'development'
+})
+  .then((server) => server.listen(process.env.PORT || 8080))
+  .then((server) => server.on('listening', function () {
     console.log(`Listening on: ${this.address().address}:${this.address().port}`)
-  })
+  }))
