@@ -1,6 +1,7 @@
 {
   "name": "galant",
   "version": "0.1.0",
+  "description": "Whimsical community-building for remote organizations.",
   "main": "bin/server",
   "scripts": {
     "lint": "standard --fix lib/**/*.js bin/*",
