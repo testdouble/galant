@@ -7,16 +7,11 @@ export default class Index extends React.Component {
       localVideoEl: this.refs.localVideo,
       remoteVideosEl: this.refs.remoteVideos,
       autoRequestMedia: true,
-      url: '//' + window.location
+      url: 'https://138.68.225.235:8888'
     })
 
     webrtc.on('readyToCall', function () {
       webrtc.joinRoom('galant')
-
-      setTimeout(() => {
-        webrtc.leaveRoom()
-        webrtc.joinRoom('galant2')
-      }, 5000)
     })
   }
 
