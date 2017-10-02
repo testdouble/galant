@@ -39,20 +39,20 @@ export function listen (wsURL) {
     const websocket = new window.WebSocket(`ws://${wsURL}`)
 
     websocket.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data)
+      const message = JSON.parse(event.data)
 
       console.log('WS message:', event.data)
 
-      switch (data.type) {
+      switch (message.type) {
         case 'hello':
           break
 
         case 'rooms:created':
-          dispatch(addRoom(data))
+          dispatch(addRoom(message.data))
           break
 
         case 'rooms:removed':
-          dispatch(removeRoom(data.name))
+          dispatch(removeRoom(message.data.name))
           break
       }
     })
