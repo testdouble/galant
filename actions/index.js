@@ -10,21 +10,27 @@ export function addRoom (data) {
 }
 
 export function createRoom (roomName) {
-  return dispatch => {
-    return fetch(`/rooms/galant_${roomName}`, {
-      method: 'PUT'
-    })
-      .then(() => dispatch({
-        type: createRoomType,
-        result: `galant_${roomName}`
-      }))
-  }
+  roomName = `galant_${roomName}`
+
+  return joinRoom(roomName)
 }
 
 export function joinRoom (roomName) {
-  return {
-    type: joinRoomType,
-    result: roomName
+  return dispatch => {
+    return fetch(`/rooms/${roomName}/join`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Some name',
+        image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='
+      })
+    })
+      .then(() => dispatch({
+        type: joinRoomType,
+        result: roomName
+      }))
   }
 }
 
