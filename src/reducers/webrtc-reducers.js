@@ -2,10 +2,16 @@ import { connectVideoType, setLocalVideoElementType, setRemoteVideoContainerType
 import attachMediaStream from 'attachmediastream'
 
 const DEFAULT_ROOM_STATE = {
-  connection: null
+  connection: null,
+  localVideoEl: null,
+  remoteVideosEl: null
 }
 
 function associateLocalVideo(simple, element) {
+  if (!simple) {
+    return
+  }
+
   simple.config.localVideoEl = element
 
   if (simple.webrtc.localStreams.length) {
@@ -14,10 +20,18 @@ function associateLocalVideo(simple, element) {
 }
 
 function associateRemoteVideo(simple, element) {
+  if (!simple) {
+    return
+  }
+
   simple.config.remoteVideosEl = element
 }
 
 function clearRemoteVideoContainer(simple) {
+  if (!simple) {
+    return
+  }
+
   const container = simple.getRemoteVideoContainer()
   if (container) {
     container.childNodes.forEach((child) => container.removeChild(child))
@@ -33,13 +47,24 @@ export function webrtc (state = DEFAULT_ROOM_STATE, action) {
     case connectVideoType:
       state.connection = result
       window.connection = result
+      associateLocalVideo(state.connection, state.localVideoEl)
+      associateRemoteVideo(state.connection, state.remoteVideosEl)
       return state
+
     case setLocalVideoElementType:
       associateLocalVideo(state.connection, result)
-      return state
+      return {
+        ...state,
+        localVideoEl: result
+      }
+
     case setRemoteVideoContainerType:
       associateRemoteVideo(state.connection, result)
-      return state
+      return {
+        ...state,
+        remoteVideosEl: result
+      }
+
     case joinRoomType:
       if (state.connection.sessionReady) {
         state.connection.leaveRoom()
