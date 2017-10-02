@@ -34,6 +34,7 @@ export default class Index extends React.Component {
             }
 
             body {
+              background: #f0f0f0;
               margin: 0;
               height: 100%;
               width: 100%;

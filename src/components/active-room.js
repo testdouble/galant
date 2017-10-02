@@ -16,7 +16,6 @@ class ActiveRoom extends React.Component {
         <div ref='remoteVideos' />
         <style jsx>{`
           .room {
-            background: #c0c0c0;
             border-radius: 0.3rem;
             margin: 1rem;
             min-height: 24px;
@@ -24,7 +23,7 @@ class ActiveRoom extends React.Component {
           }
 
           .room--active {
-            background: #a0c0a0;
+            background: #F14F54;
           }
         `}</style>
       </div>
