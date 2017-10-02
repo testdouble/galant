@@ -53,9 +53,10 @@ export default class Index extends React.Component {
     fetch(`/rooms/galant_${this.state.newRoomName}`, {
       method: 'PUT'
     })
-      .then(() => this.setState({
+      .then(() => this.setState((prevState) => ({
+        activeRoomName: `galant_${prevState.newRoomName}`,
         newRoomName: this.generateRandomRoomName()
-      }))
+      })))
   }
 
   generateRandomRoomName () {
