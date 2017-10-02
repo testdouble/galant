@@ -14,9 +14,7 @@ function associateLocalVideo(simple, element) {
 }
 
 function associateRemoteVideo(simple, element) {
-  clearRemoteVideoContainer(simple)
   simple.config.remoteVideosEl = element
-  clearRemoteVideoContainer(simple)
 }
 
 function clearRemoteVideoContainer(simple) {
@@ -43,9 +41,11 @@ export function webrtc (state = DEFAULT_ROOM_STATE, action) {
       associateRemoteVideo(state.connection, result)
       return state
     case joinRoomType:
-      state.connection.leaveRoom()
-      clearRemoteVideoContainer(state.connection)
-      state.connection.joinRoom(result)
+      if (state.connection.sessionReady) {
+        state.connection.leaveRoom()
+        clearRemoteVideoContainer(state.connection)
+        state.connection.joinRoom(result)
+      }
       return state
   }
 
