@@ -25,6 +25,7 @@
     "react": "~15.6.2",
     "react-dom": "~15.6.2",
     "signal-master": "~1.0.1",
-    "simplewebrtc": "~3.0.1"
+    "simplewebrtc": "~3.0.1",
+    "webrtc-adapter": "~4.2.2"
   }
 }
