@@ -36,7 +36,7 @@ class HairModal extends React.Component {
     const context = canvas.getContext('2d')
     context.drawImage(this.mirror, 0, 0, 128, 96)
 
-    this.props.onCloseUp('Agent ' + Math.random().toString().slice(2, 6), canvas.toDataURL())
+    this.props.onCloseUp(canvas.toDataURL())
   }
 
   render () {

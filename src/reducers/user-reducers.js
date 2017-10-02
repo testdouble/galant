@@ -1,6 +1,7 @@
 import { takeCloseUpType } from '../actions/action-types'
 
 const DEFAULT_USER_STATE = {
+  name: 'Agent ' + Math.random().toString().slice(2, 6),
   closeUp: null
 }
 

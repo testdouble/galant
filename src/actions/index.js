@@ -22,7 +22,12 @@ export function createRoom (roomName, userName, userImage) {
 }
 
 export function joinRoom (roomName, userName, userImage) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const state = getState()
+    roomName = roomName || state.rooms.activeRoomName
+    userName = userName || state.users.name
+    userImage = userImage || state.users.closeUp
+
     return fetch(`/rooms/${roomName}/join`, {
       method: 'POST',
       headers: {
@@ -102,7 +107,7 @@ export function connectVideo (connection) {
 }
 
 export function startVideo () {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     const connection = new SimpleWebRTC({
       autoRequestMedia: true
     })
@@ -111,7 +116,7 @@ export function startVideo () {
 
     connection.on('readyToCall', () => {
       console.log('SimpleWebRTC ready.')
-      dispatch(joinRoom(getState().rooms.activeRoomName))
+      dispatch(joinRoom())
     })
   }
 }
@@ -130,13 +135,13 @@ export function setRemoteVideoContainer (element) {
   }
 }
 
-export function takeCloseUp (userName, closeUp) {
+export function takeCloseUp (closeUp) {
   return dispatch => {
     dispatch({
       type: takeCloseUpType,
       result: closeUp
     })
 
-    dispatch(joinRoom('galant_default', userName, closeUp))
+    dispatch(joinRoom('galant_default', null, closeUp))
   }
 }
