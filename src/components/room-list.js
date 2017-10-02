@@ -41,11 +41,12 @@ class RoomList extends React.Component {
     return (
       <div>
         <h1>Galant</h1>
+        <BeautyModal />
         {rooms.map((room) => {
           if (activeRoomName === room.name) {
-            return <ActiveRoom room={room} />
+            return <ActiveRoom key={room.name} room={room} />
           } else {
-            return <Room room={room} onClick={() => this.props.joinRoom(room.name)} />
+            return <Room key={room.name} room={room} onClick={() => this.props.joinRoom(room.name)} />
           }
         })}
         <input type='text' onChange={this.updateNewRoomName} value={newRoomName} />
