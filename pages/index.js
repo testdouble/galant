@@ -8,7 +8,7 @@ export default class Index extends React.Component {
     super()
     this.state = {
       activeRoomName: null,
-      newRoomName: '',
+      newRoomName: this.generateRandomRoomName(),
       rooms: []
     }
 
@@ -53,8 +53,12 @@ export default class Index extends React.Component {
       method: 'PUT'
     })
       .then(() => this.setState({
-        newRoomName: ''
+        newRoomName: this.generateRandomRoomName()
       }))
+  }
+
+  generateRandomRoomName () {
+    return Math.random().toString().slice(2, 6)
   }
 
   render () {
