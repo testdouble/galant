@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import { configureStore } from '../util/configure-store'
 import { listen, startVideo } from '../actions'
-import RoomList from '../components/room-list'
+import Dashboard from '../components/dashboard'
 import reducers from '../reducers'
 
 export default class Index extends React.Component {
@@ -27,7 +27,18 @@ export default class Index extends React.Component {
             <link href='https://fonts.googleapis.com/css?family=Amatic+SC|Raleway' rel='stylesheet' />
             <script src='https://use.fontawesome.com/98abe3dc6e.js' />
           </Head>
-          <RoomList />
+          <Dashboard />
+          <style global jsx>{`
+            *, *:before, *:after {
+              box-sizing: border-box;
+            }
+
+            body {
+              margin: 0;
+              height: 100%;
+              width: 100%;
+            }
+          `}</style>
         </div>
       </Provider>
     )

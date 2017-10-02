@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { createRoom, joinRoom, takeCloseUp } from '../actions'
+import { createRoom, joinRoom } from '../actions'
 import ActiveRoom from '../components/active-room'
-import HairModal from '../components/hair-modal'
 import Room from '../components/room'
 
 class RoomList extends React.Component {
@@ -42,15 +41,11 @@ class RoomList extends React.Component {
   }
 
   render () {
-    const { activeRoomName, hasCloseUp, rooms } = this.props
+    const { activeRoomName, rooms } = this.props
     const { newRoomName } = this.state
 
     return (
       <div>
-        <h1>Galant</h1>
-        {hasCloseUp ? null : (
-          <HairModal onCloseUp={this.props.takeCloseUp} />
-        )}
         {rooms.map((room) => {
           if (activeRoomName === room.name) {
             return <ActiveRoom key={room.name} room={room} />
@@ -60,16 +55,6 @@ class RoomList extends React.Component {
         })}
         <input type='text' onChange={this.updateNewRoomName} value={newRoomName} />
         <button onClick={this.createRoom}>Create</button>
-        <style jsx>{`
-          *, *:before, *:after {
-            box-sizing: border-box;
-          }
-
-          body: {
-            height: 100%;
-            width: 100%;
-          }
-        `}</style>
       </div>
     )
   }
@@ -78,16 +63,13 @@ class RoomList extends React.Component {
 function mapStateToProps ({ rooms, users }) {
   return {
     activeRoomName: rooms.activeRoomName,
-    hasCloseUp: users.closeUp !== null,
     rooms: rooms.rooms
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    createRoom: (roomName) => dispatch(createRoom(roomName)),
-    joinRoom: (roomName) => dispatch(joinRoom(roomName)),
-    takeCloseUp: (userName, closeUp) => dispatch(takeCloseUp(userName, closeUp))
+    joinRoom: (roomName) => dispatch(joinRoom(roomName))
   }
 }
 

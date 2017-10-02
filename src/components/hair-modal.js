@@ -7,11 +7,6 @@ class HairModal extends React.Component {
   constructor () {
     super()
 
-    this.state = {
-      freezeCloseUp: false,
-      stream: null
-    }
-
     this.handleMirrorRef = this.handleMirrorRef.bind(this)
     this.takeCloseUp = this.takeCloseUp.bind(this)
   }
@@ -43,9 +38,11 @@ class HairModal extends React.Component {
     return (
       <div className='modal modal--hair'>
         <div className='modal__content'>
-          <video autoPlay src={this.state.stream} ref={this.handleMirrorRef} />
-          <h1 className='modal__title'>Check your hair! Check your makeup!</h1>
-          <button className='modal__close-Up-button' onClick={this.takeCloseUp}><i className='fa fa-camera-retro' aria-hidden='true' /></button>
+          <video className='modal__video' autoPlay ref={this.handleMirrorRef} />
+          <div className={`modal__text ${this.props.hasLocalVideoStream ? 'modal__text--streaming' : ''}`}>
+            <h1 className='modal__title'>Check your hair! Check your makeup!</h1>
+            <button className='modal__close-up-button' onClick={this.takeCloseUp}>Take My Close-Up</button>
+          </div>
         </div>
         <style jsx>{`
           .modal {
@@ -58,39 +55,68 @@ class HairModal extends React.Component {
             z-index: 1;
           }
 
-          .modal__close-Up-button {
-            color: black;
-            background: none;
-            border: 1px solid black;
-            border-radius: 100px;
-            font: 200 36px/60px 'Raleway';
-            width: 67px;
+          .modal__close-up-button {
+            background: #FFFFFF;
+            border: 1px solid #FFFFFF;
+            border-radius: 4px;
+            color: #F14F54;
+            cursor: pointer;
+            font: 200 20px 'Raleway';
+            padding: 8px 16px;
+            transition: box-shadow 0.1s;
+          }
+
+          .modal__text {
+            margin-top: -480px;
+            transition: margin-top 0.2s;
+          }
+
+          .modal__text--streaming {
+            margin-top: 0;
+          }
+
+          .modal__close-up-button:hover {
+            box-shadow: rgba(0,0,0,0.8) 0px 0px 10px;
           }
 
           .modal__title {
-            color: black;
             font: 400 48px 'Amatic SC';
             margin: 12px 0;
           }
 
           .modal__content {
-            background: white;
-            box-shadow: inset rgba(0,0,0,0.3) 0px 0px 20px;
+            background: #F14F54;
+            border-radius: 4px;
+            box-shadow: rgba(0,0,0,0.8) 0px 0px 10px;
+            color: #FFFFFF;
             position: absolute;
             padding: 24px;
             top: 50%;
             left: 50%;
             text-align: center;
-            width: 640px;
             transform: translate(-50%, -50%);
           }
 
-          video {
-            transform: scaleX(-1)
+          .modal__video {
+            height: 480px;
+            width: 640px;
+            transform: scaleX(-1);
+          }
+        `}</style>
+        <style global jsx>{`
+          body {
+            height: 100vh;
+            overflow: hidden;
           }
         `}</style>
       </div>
     )
+  }
+}
+
+function mapStateToProps ({ webrtc }) {
+  return {
+    hasLocalVideoStream: webrtc.localVideoEl !== null
   }
 }
 
@@ -100,4 +126,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(HairModal)
+export default connect(mapStateToProps, mapDispatchToProps)(HairModal)
