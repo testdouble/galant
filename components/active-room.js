@@ -2,7 +2,7 @@ import React from 'react'
 import SimpleWebRTC from 'simplewebrtc'
 
 export default class ActiveRoom extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     var webrtc = new SimpleWebRTC({
       localVideoEl: this.refs.localVideo,
       remoteVideosEl: this.refs.remoteVideos,
@@ -15,7 +15,7 @@ export default class ActiveRoom extends React.Component {
 
   render () {
     return (
-      <div className="room room--active">
+      <div className='room room--active'>
         <video ref='localVideo' />
         <div ref='remoteVideos' />
         <p>{this.props.room.name}</p>

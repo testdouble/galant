@@ -3,7 +3,7 @@ import React from 'react'
 export default class Room extends React.Component {
   render () {
     return (
-      <div className="room" {...this.props}>
+      <div className='room' {...this.props}>
         <p>{this.props.room.name}</p>
         <style jsx>{`
           .room {

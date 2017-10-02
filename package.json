@@ -4,9 +4,9 @@
   "description": "Whimsical community-building for remote organizations.",
   "main": "bin/server",
   "scripts": {
-    "lint:client": "standard --fix pages/**/*.js",
+    "lint:client": "standard --fix components/**/*.js pages/**/*.js",
     "lint:server": "standard --fix lib/**/*.js bin/*",
-    "prestart": "npm run lint:server",
+    "prestart": "npm run lint:server && npm run lint:client",
     "start": "node .",
     "start:production": "NODE_ENV=production next build && node .",
     "test": "echo \"Error: no test specified\" && exit 1",
