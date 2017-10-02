@@ -3,7 +3,8 @@ import SimpleWebRTC from 'simplewebrtc'
 
 import {
   addRoomType, joinRoomType, removeRoomType,
-  connectVideoType, setLocalVideoElementType, setRemoteVideoContainerType
+  connectVideoType, setLocalVideoElementType, setRemoteVideoContainerType,
+  takeCloseUpType
 } from './action-types'
 
 export function addRoom (data) {
@@ -13,13 +14,13 @@ export function addRoom (data) {
   }
 }
 
-export function createRoom (roomName) {
+export function createRoom (roomName, userName, userImage) {
   roomName = `galant_${roomName}`
 
-  return joinRoom(roomName)
+  return joinRoom(roomName, userName, userImage)
 }
 
-export function joinRoom (roomName) {
+export function joinRoom (roomName, userName, userImage) {
   return dispatch => {
     return fetch(`/rooms/${roomName}/join`, {
       method: 'POST',
@@ -27,8 +28,8 @@ export function joinRoom (roomName) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: 'Some name',
-        image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='
+        name: userName,
+        image: userImage
       })
     })
       .then(() => dispatch({
@@ -70,14 +71,14 @@ export function removeRoom (roomName) {
   }
 }
 
-export function connectVideo(connection) {
+export function connectVideo (connection) {
   return {
     type: connectVideoType,
     result: connection
   }
 }
 
-export function startVideo() {
+export function startVideo () {
   return (dispatch, getState) => {
     const connection = new SimpleWebRTC({
       autoRequestMedia: true
@@ -92,16 +93,27 @@ export function startVideo() {
   }
 }
 
-export function setLocalVideoElement(element) {
+export function setLocalVideoElement (element) {
   return {
     type: setLocalVideoElementType,
     result: element
   }
 }
 
-export function setRemoteVideoContainer(element) {
+export function setRemoteVideoContainer (element) {
   return {
     type: setRemoteVideoContainerType,
     result: element
+  }
+}
+
+export function takeCloseUp (userName, closeUp) {
+  return dispatch => {
+    dispatch({
+      type: takeCloseUpType,
+      result: closeUp
+    })
+
+    dispatch(joinRoom('galant_default', userName, closeUp))
   }
 }
