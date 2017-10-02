@@ -7,9 +7,12 @@ export default class Index extends React.Component {
   constructor () {
     super()
     this.state = {
-      activeRoom: null,
+      activeRoomName: null,
+      newRoomName: '',
       rooms: []
     }
+
+    this.updateNewRoomName = this.updateNewRoomName.bind(this)
   }
 
   componentDidMount () {
@@ -21,6 +24,12 @@ export default class Index extends React.Component {
       console.log('WS message:', event)
 
       this.handleRemoteEvent(data.type, data)
+    })
+  }
+
+  updateNewRoomName (event) {
+    this.setState({
+      newRoomName: event.target.value
     })
   }
 
@@ -40,22 +49,28 @@ export default class Index extends React.Component {
   }
 
   createRoom () {
-    fetch('/rooms/' + Math.random().toString().slice(2), {
+    fetch(`/rooms/${this.state.newRoomName}`, {
       method: 'PUT'
     })
+      .then(() => this.setState({
+        newRoomName: ''
+      }))
   }
 
   render () {
+    const { activeRoomName, newRoomName } = this.state
+
     return (
       <div>
         <h1>Galant</h1>
         {this.state.rooms.map((room) => {
-          if (this.state.activeRoom === room.name) {
+          if (activeRoomName === room.name) {
             return <ActiveRoom room={room} />
           } else {
-            return <Room room={room} onClick={() => this.setState({ activeRoom: room.name })} />
+            return <Room room={room} onClick={() => this.setState({ activeRoomName: room.name })} />
           }
         })}
+        <input type='text' onChange={this.updateNewRoomName} value={newRoomName} />
         <button onClick={() => this.createRoom()}>Create</button>
         <style jsx>{`
           *, *:before, *:after {
