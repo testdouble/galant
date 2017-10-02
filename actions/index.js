@@ -41,6 +41,8 @@ export function listen (wsURL) {
     websocket.addEventListener('message', (event) => {
       const data = JSON.parse(event.data)
 
+      console.log('WS message:', event.data)
+
       switch (data.type) {
         case 'hello':
           break
