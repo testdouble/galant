@@ -9,7 +9,10 @@ export default class ActiveRoom extends React.Component {
       autoRequestMedia: true
     })
 
-    webrtc.on('readyToCall', () => webrtc.joinRoom(this.props.room.name))
+    webrtc.on('readyToCall', () => {
+      console.log('RTC join:', this.props.room.name)
+      webrtc.joinRoom(this.props.room.name)
+    })
   }
 
   render () {
