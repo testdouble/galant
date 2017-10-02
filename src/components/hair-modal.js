@@ -30,13 +30,13 @@ class HairModal extends React.Component {
 
   takeCloseUp () {
     const canvas = document.createElement('canvas')
-    canvas.setAttribute('height', 640)
-    canvas.setAttribute('width', 480)
+    canvas.setAttribute('height', 96)
+    canvas.setAttribute('width', 128)
 
     const context = canvas.getContext('2d')
-    context.drawImage(this.mirror, 0, 0, 640, 480)
+    context.drawImage(this.mirror, 0, 0, 128, 96)
 
-    this.props.onCloseUp('Anonymous Penguin', canvas.toDataURL())
+    this.props.onCloseUp('Agent ' + Math.random().toString().slice(2, 6), canvas.toDataURL())
   }
 
   render () {

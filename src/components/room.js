@@ -5,7 +5,9 @@ export default class Room extends React.Component {
     return (
       <div className='room' onClick={this.props.onClick}>
         <p>{this.props.room.name}</p>
-        <p>{JSON.stringify(this.props.room.users)}</p>
+        {this.props.room.users.map((user) => (
+          <img src={user.image} />
+        ))}
         <style jsx>{`
           .room {
             background: #c0c0c0;
