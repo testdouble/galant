@@ -10,11 +10,17 @@ class RoomList extends React.Component {
     super(props)
 
     this.state = {
-      newRoomName: this.generateRandomRoomName()
+      newRoomName: ''
     }
 
     this.createRoom = this.createRoom.bind(this)
     this.updateNewRoomName = this.updateNewRoomName.bind(this)
+  }
+
+  componentDidMount () {
+    this.setState({
+      newRoomName: this.generateRandomRoomName()
+    })
   }
 
   updateNewRoomName (event) {
