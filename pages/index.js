@@ -49,7 +49,7 @@ export default class Index extends React.Component {
   }
 
   createRoom () {
-    fetch(`/rooms/${this.state.newRoomName}`, {
+    fetch(`/rooms/galant_${this.state.newRoomName}`, {
       method: 'PUT'
     })
       .then(() => this.setState({
