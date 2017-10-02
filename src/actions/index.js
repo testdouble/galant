@@ -28,6 +28,10 @@ export function joinRoom (roomName, userName, userImage) {
     userName = userName || state.users.name
     userImage = userImage || state.users.closeUp
 
+    if (!roomName) {
+      return
+    }
+
     return fetch(`/rooms/${roomName}/join`, {
       method: 'POST',
       headers: {
