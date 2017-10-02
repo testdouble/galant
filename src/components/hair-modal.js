@@ -1,6 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default class HairModal extends React.Component {
+import { setLocalVideoElement } from '../actions'
+
+class HairModal extends React.Component {
   constructor () {
     super()
 
@@ -14,14 +17,7 @@ export default class HairModal extends React.Component {
   }
 
   componentDidMount () {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-      .then(localStream => {
-        const video = window.URL.createObjectURL(localStream)
-
-        this.setState({
-          stream: video
-        })
-      })
+    this.props.setLocalVideoElement(this.mirror)
   }
 
   handleMirrorRef (ref) {
@@ -97,3 +93,11 @@ export default class HairModal extends React.Component {
     )
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return {
+    setLocalVideoElement: (element) => dispatch(setLocalVideoElement(element))
+  }
+}
+
+export default connect(() => ({}), mapDispatchToProps)(HairModal)
