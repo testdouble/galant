@@ -1,6 +1,10 @@
 import fetch from 'isomorphic-fetch'
+import SimpleWebRTC from 'simplewebrtc'
 
-import { addRoomType, joinRoomType, removeRoomType } from './action-types'
+import {
+  addRoomType, joinRoomType, removeRoomType,
+  connectVideoType, setLocalVideoElementType, setRemoteVideoContainerType
+} from './action-types'
 
 export function addRoom (data) {
   return {
@@ -63,5 +67,41 @@ export function removeRoom (roomName) {
   return {
     type: removeRoomType,
     result: roomName
+  }
+}
+
+export function connectVideo(connection) {
+  return {
+    type: connectVideoType,
+    result: connection
+  }
+}
+
+export function startVideo() {
+  return (dispatch, getState) => {
+    const connection = new SimpleWebRTC({
+      autoRequestMedia: true
+    })
+
+    dispatch(connectVideo(connection))
+
+    connection.on('readyToCall', () => {
+      console.log('SimpleWebRTC ready.')
+      dispatch(joinRoom(getState().rooms.activeRoomName))
+    })
+  }
+}
+
+export function setLocalVideoElement(element) {
+  return {
+    type: setLocalVideoElementType,
+    result: element
+  }
+}
+
+export function setRemoteVideoContainer(element) {
+  return {
+    type: setRemoteVideoContainerType,
+    result: element
   }
 }

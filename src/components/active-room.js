@@ -1,18 +1,12 @@
 import React from 'react'
-import SimpleWebRTC from 'simplewebrtc'
+import { connect } from 'react-redux'
 
-export default class ActiveRoom extends React.Component {
+import { setLocalVideoElement, setRemoteVideoContainer } from '../actions'
+
+class ActiveRoom extends React.Component {
   componentDidMount () {
-    var webrtc = new SimpleWebRTC({
-      localVideoEl: this.refs.localVideo,
-      remoteVideosEl: this.refs.remoteVideos,
-      autoRequestMedia: true
-    })
-
-    webrtc.on('readyToCall', () => {
-      console.log('RTC join:', this.props.room.name)
-      webrtc.joinRoom(this.props.room.name)
-    })
+    this.props.setLocalVideoElement(this.refs.localVideo)
+    this.props.setRemoteVideoContainer(this.refs.remoteVideos)
   }
 
   render () {
@@ -37,3 +31,12 @@ export default class ActiveRoom extends React.Component {
     )
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return {
+    setLocalVideoElement: (element) => dispatch(setLocalVideoElement(element)),
+    setRemoteVideoContainer: (element) => dispatch(setRemoteVideoContainer(element))
+  }
+}
+
+export default connect(() => ({}), mapDispatchToProps)(ActiveRoom)
