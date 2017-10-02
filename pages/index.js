@@ -12,6 +12,7 @@ export default class Index extends React.Component {
       rooms: []
     }
 
+    this.createRoom = this.createRoom.bind(this)
     this.updateNewRoomName = this.updateNewRoomName.bind(this)
   }
 
@@ -75,7 +76,7 @@ export default class Index extends React.Component {
           }
         })}
         <input type='text' onChange={this.updateNewRoomName} value={newRoomName} />
-        <button onClick={() => this.createRoom()}>Create</button>
+        <button onClick={this.createRoom}>Create</button>
         <style jsx>{`
           *, *:before, *:after {
             box-sizing: border-box;
