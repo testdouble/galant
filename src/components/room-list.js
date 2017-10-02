@@ -47,7 +47,6 @@ class RoomList extends React.Component {
     return (
       <div>
         <h1>Galant</h1>
-        <BeautyModal />
         {rooms.map((room) => {
           if (activeRoomName === room.name) {
             return <ActiveRoom key={room.name} room={room} />
