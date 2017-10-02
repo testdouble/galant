@@ -3,6 +3,7 @@ import SimpleWebRTC from 'simplewebrtc'
 
 import {
   addRoomType, joinRoomType, removeRoomType,
+  addUserToRoomType, removeUserFromRoomType,
   connectVideoType, setLocalVideoElementType, setRemoteVideoContainerType,
   takeCloseUpType
 } from './action-types'
@@ -59,6 +60,14 @@ export function listen (wsURL) {
         case 'rooms:removed':
           dispatch(removeRoom(message.data.name))
           break
+
+        case 'rooms:users:added':
+          dispatch(addUserToRoom(message.data))
+          break
+
+        case 'rooms:users:removed':
+          dispatch(removeUserFromRoom(message.data))
+          break
       }
     })
   }
@@ -68,6 +77,20 @@ export function removeRoom (roomName) {
   return {
     type: removeRoomType,
     result: roomName
+  }
+}
+
+export function addUserToRoom (data) {
+  return {
+    type: addUserToRoomType,
+    result: data
+  }
+}
+
+export function removeUserFromRoom (data) {
+  return {
+    type: removeUserFromRoomType,
+    result: data
   }
 }
 

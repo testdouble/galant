@@ -1,4 +1,7 @@
-import { addRoomType, createRoomType, joinRoomType, removeRoomType } from '../actions/action-types'
+import {
+  addRoomType, createRoomType, joinRoomType, removeRoomType,
+  addUserToRoomType, removeUserFromRoomType
+} from '../actions/action-types'
 
 const DEFAULT_ROOM_STATE = {
   activeRoomName: null,
@@ -29,6 +32,28 @@ export function rooms (state = DEFAULT_ROOM_STATE, action) {
       return {
         ...state,
         rooms: state.rooms.filter(room => room.name !== result)
+      }
+
+    case addUserToRoomType:
+      return {
+        ...state,
+        rooms: state.rooms.map((room) => {
+          if (room.name === result.name) {
+            room.users.push(result.user)
+          }
+          return room
+        })
+      }
+
+    case removeUserFromRoomType:
+      return {
+        ...state,
+        rooms: state.rooms.map((room) => {
+          if (room.name === result.name) {
+            room.users = room.users.filter((user) => user.name !== result.user.name)
+          }
+          return room
+        })
       }
 
     default:
