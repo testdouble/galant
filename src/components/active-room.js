@@ -14,13 +14,13 @@ class ActiveRoom extends React.Component {
       <div className='room room--active'>
         <video ref='localVideo' />
         <div ref='remoteVideos' />
-        <p>{this.props.room.name}</p>
         <style jsx>{`
           .room {
             background: #c0c0c0;
+            border-radius: 0.3rem;
             margin: 1rem;
             min-height: 24px;
-            width: 100%;
+            padding: 1rem;
           }
 
           .room--active {

@@ -53,8 +53,6 @@ class RoomList extends React.Component {
             return <Room key={room.name} room={room} onClick={() => this.props.joinRoom(room.name)} />
           }
         })}
-        <input type='text' onChange={this.updateNewRoomName} value={newRoomName} />
-        <button onClick={this.createRoom}>Create</button>
       </div>
     )
   }
