@@ -44,4 +44,4 @@ git clone https://github.com/andyet/signalmaster.git
   ./scripts/generate-ssl-certs.sh
 )
 
-tmux new-session -d "NODE_ENV=production node server.js"
+tmux new-session -d "PORT=443 NODE_ENV=production node server.js"

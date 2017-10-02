@@ -7,7 +7,7 @@ export default class ActiveRoom extends React.Component {
       localVideoEl: this.refs.localVideo,
       remoteVideosEl: this.refs.remoteVideos,
       autoRequestMedia: true,
-      url: 'https://138.68.225.235:8888'
+      url: 'https://138.68.225.235'
     })
 
     webrtc.on('readyToCall', () => webrtc.joinRoom(this.props.room.name))
