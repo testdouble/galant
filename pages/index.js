@@ -1,27 +1,18 @@
-import SimpleWebRTC from 'simplewebrtc'
-import React from 'react'
 import fetch from 'isomorphic-fetch'
+import React from 'react'
+import ActiveRoom from '../components/active-room'
+import Room from '../components/room'
 
 export default class Index extends React.Component {
   constructor () {
     super()
     this.state = {
+      activeRoom: null,
       rooms: []
     }
   }
 
   componentDidMount () {
-    var webrtc = new SimpleWebRTC({
-      localVideoEl: this.refs.localVideo,
-      remoteVideosEl: this.refs.remoteVideos,
-      autoRequestMedia: true,
-      url: 'https://138.68.225.235:8888'
-    })
-
-    webrtc.on('readyToCall', function () {
-      webrtc.joinRoom('galant')
-    })
-
     var websocket = new window.WebSocket('ws://' + window.location.host)
 
     websocket.addEventListener('message', (event) => {
@@ -58,10 +49,24 @@ export default class Index extends React.Component {
     return (
       <div>
         <h1>Galant</h1>
-        <p>Rooms: {JSON.stringify(this.state.rooms)}</p>
+        {this.state.rooms.map((room) => {
+          if (this.state.activeRoom === room.name) {
+            return <ActiveRoom room={room} />
+          } else {
+            return <Room room={room} onClick={() => this.setState({ activeRoom: room.name })} />
+          }
+        })}
         <button onClick={() => this.createRoom()}>Create</button>
-        <video ref='localVideo' />
-        <div ref='remoteVideos' />
+        <style jsx>{`
+          *, *:before, *:after {
+            box-sizing: border-box;
+          }
+
+          body: {
+            height: 100%;
+            width: 100%;
+          }
+        `}</style>
       </div>
     )
   }
