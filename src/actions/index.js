@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-import { addRoomType, createRoomType, joinRoomType, removeRoomType } from './action-types'
+import { addRoomType, joinRoomType, removeRoomType } from './action-types'
 
 export function addRoom (data) {
   return {
