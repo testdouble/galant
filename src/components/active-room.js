@@ -13,17 +13,28 @@ class ActiveRoom extends React.Component {
     return (
       <div className='room room--active'>
         <video ref='localVideo' />
-        <div ref='remoteVideos' />
+        <div className="room__remote" ref='remoteVideos' />
         <style jsx>{`
           .room {
             border-radius: 0.3rem;
             margin: 1rem;
             min-height: 24px;
-            padding: 1rem;
+            padding: 0.5rem;
           }
 
           .room--active {
             background: #F14F54;
+          }
+
+          .room__remote {
+            display: inline;
+          }
+        `}</style>
+        <style>{`
+          video {
+            height: 20rem;
+            display: inline;
+            margin: 0.5rem;
           }
         `}</style>
       </div>
